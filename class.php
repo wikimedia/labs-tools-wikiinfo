@@ -131,10 +131,12 @@ class WikiInfoTool extends KrToolBaseClass {
 		$result = null;
 
 		if ( $normalised ) {
-			// Note: Make separate queries so that we can
-			// prioritise which match is preferred
-			// E.g. "nl" should match "dbname=nlwiki", then
-			// "dbname=nlwiktionary", then "url=http://nds-nl.wikipedia.org"
+			// Note: Make separate queries so that we can prioritise preferred
+			// match order:
+			// - "nl" should match "dbname=nlwiki",
+			// - "dbname=nlwiktionary",
+			// - "url=http://nl.wikipedia.org"
+			// - "url=http://something-else.nl.org"
 			$rows = LabsDB::query( LabsDB::getMetaDB(),
 				'SELECT dbname, lang, name, family, url
 				FROM wiki
@@ -148,10 +150,10 @@ class WikiInfoTool extends KrToolBaseClass {
 				$rows = LabsDB::query( LabsDB::getMetaDB(),
 					'SELECT dbname, lang, name, family, url
 					FROM wiki
-					WHERE dbname LIKE :name
+					WHERE dbname LIKE :nameany
 					LIMIT 1',
 					array(
-						':name' => "{$normalised}%",
+						':nameany' => "{$normalised}%",
 					)
 				);
 			}
@@ -159,10 +161,21 @@ class WikiInfoTool extends KrToolBaseClass {
 				$rows = LabsDB::query( LabsDB::getMetaDB(),
 					'SELECT dbname, lang, name, family, url
 					FROM wiki
-					WHERE url LIKE :name
+					WHERE url LIKE :url
 					LIMIT 1',
 					array(
-						':name' => "%{$normalised}%",
+						':urlany' => "%/{$normalised}%",
+					)
+				);
+			}
+			if ( !$rows ) {
+				$rows = LabsDB::query( LabsDB::getMetaDB(),
+					'SELECT dbname, lang, name, family, url
+					FROM wiki
+					WHERE url LIKE :anyurlany
+					LIMIT 1',
+					array(
+						':anyurlany' => "%{$normalised}%",
 					)
 				);
 			}
