@@ -1,14 +1,14 @@
 <?php
-/**
- * Main class
- *
- * @package wmf-tool-wikiinfo
- */
+
+use Krinkle\Toolbase\Html;
+use Krinkle\Toolbase\KrToolBaseClass;
+use Krinkle\Toolbase\LabsDB;
+
 class WikiInfoTool extends KrToolBaseClass {
 
 	protected $settingsKeys = array();
 
-	protected function show() {
+	public function run() {
 		global $kgBase, $I18N, $kgReq;
 
 		$params = array(

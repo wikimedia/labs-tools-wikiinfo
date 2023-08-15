@@ -1,21 +1,12 @@
 <?php
-/**
- * Main index
- *
- * @copyright 2011-2018 Timo Tijhof
- * @package wmf-tool-wikiinfo
- */
 
-/**
- * Configuration
- * -------------------------------------------------
- */
+use Krinkle\Toolbase\BaseTool;
+use Krinkle\Intuition\Intuition;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../class.php';
 
 $tool = new WikiInfoTool();
-require_once __DIR__ . '/../config.php';
 
 $I18N = new Intuition( 'getwikiapi' );
 
@@ -29,8 +20,11 @@ $kgBase = BaseTool::newFromArray( array(
 		'main.js',
 	),
 	'I18N' => $I18N,
+	'sourceInfo' => array(
+		'issueTrackerUrl' => 'https://phabricator.wikimedia.org/tag/wikiinfo/',
+	),
 ) );
-$kgBase->setSourceInfoGithub( 'Krinkle', 'wmf-tool-wikiinfo', dirname( __DIR__ ) );
+$kgBase->setSourceInfoGerrit( 'labs/tools/wikiinfo', dirname( __DIR__ ) );
 
 /**
  * Output
