@@ -161,7 +161,7 @@ class WikiInfoTool extends KrToolBaseClass {
 				$rows = LabsDB::query( LabsDB::getMetaDB(),
 					'SELECT dbname, lang, name, family, url
 					FROM wiki
-					WHERE url LIKE :url
+					WHERE url LIKE :urlany
 					LIMIT 1',
 					array(
 						':urlany' => "%/{$normalised}%",
