@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset>
+	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
+	<rule ref="MediaWiki.Commenting.FunctionComment.MissingDocumentationProtected">
+		<exclude-pattern>src/*</exclude-pattern>
+	</rule>
+	<rule ref="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationProtected">
+		<exclude-pattern>src/*</exclude-pattern>
+	</rule>
+	<rule ref="MediaWiki.NamingConventions.ValidGlobalName">
+		<properties>
+			<property name="allowedPrefixes" type="array" value="kg" />
+			<property name="ignoreList" type="array" value="$I18N" />
+		</properties>
+	</rule>
+	<file>.</file>
+	<arg name="extensions" value="php" />
+	<arg name="encoding" value="UTF-8" />
+</ruleset>

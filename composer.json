@@ -6,6 +6,7 @@
 	},
 	"require-dev": {
 		"php-parallel-lint/php-parallel-lint": "1.4.0",
+		"mediawiki/mediawiki-codesniffer": "47.0.0",
 		"mediawiki/mediawiki-phan-config": "0.16.0"
 	},
 	"scripts": {
@@ -15,8 +16,18 @@
 		],
 		"test": [
 			"parallel-lint . --exclude vendor",
+			"@phpcs",
 			"@phan"
 		],
-		"phan": "phan --allow-polyfill-parser"
+		"fix": [
+			"phpcbf"
+		],
+		"phan": "phan --allow-polyfill-parser",
+		"phpcs": "phpcs -sp ."
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
 	}
 }

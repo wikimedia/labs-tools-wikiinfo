@@ -4,19 +4,20 @@ use Krinkle\Toolbase\Html;
 use Krinkle\Toolbase\KrToolBaseClass;
 use Krinkle\Toolbase\LabsDB;
 
+// phpcs:disable MediaWiki.Files.ClassMatchesFilename.NotMatch
 class WikiInfoTool extends KrToolBaseClass {
 
-	protected $settingsKeys = array();
+	protected $settingsKeys = [];
 
 	public function run() {
 		global $kgBase, $I18N, $kgReq;
 
-		$params = array(
+		$params = [
 			'wikiids' => $kgReq->getVal( 'wikiids', '' ),
 			'format' => $kgReq->getVal( 'format', '_tool' ),
 			'callback' => $kgReq->getVal( 'callback', null ),
 			'_tool' => $kgReq->getVal( '_tool', null ),
-		);
+		];
 		$results = null;
 
 		if ( $params['wikiids'] ) {
@@ -29,26 +30,26 @@ class WikiInfoTool extends KrToolBaseClass {
 		$resultsHtml = '';
 		if ( $results ) {
 			// List of links to API requests with different formats
-			$permalinks = '<strong>' . $I18N->msg( 'formats-heading', array( 'escape' => 'html' ) ) . '</strong>';
+			$permalinks = '<strong>' . $I18N->msg( 'formats-heading', [ 'escape' => 'html' ] ) . '</strong>';
 			$permalinks .= '<ul class="nav nav-pills">';
 			foreach ( kfApiFormats() as $data ) {
-				$permalinks .= '<li><a href="' . htmlspecialchars( $kgBase->generatePermalink( $data['params'] + array(
+				$permalinks .= '<li><a href="' . htmlspecialchars( $kgBase->generatePermalink( $data['params'] + [
 					'wikiids' => $params['wikiids'],
-				) ) ) . '">' . "{$data['label']}</a></li>\n";
+				] ) ) . '">' . "{$data['label']}</a></li>\n";
 			}
 			$permalinks .= '</ul>';
 			$resultsHtml .= $permalinks;
 
 			foreach ( $results as $result ) {
-				$resultsHtml .= Html::element( 'h2', array( 'id' => 'output' ),
-					$I18N->msg( 'output', array( 'variables' => array( $result['input'] ) ) )
+				$resultsHtml .= Html::element( 'h2', [ 'id' => 'output' ],
+					$I18N->msg( 'output', [ 'variables' => [ $result['input'] ] ] )
 				);
 				if ( !$result['match'] ) {
 					$resultsHtml .= '<p><em>' .
-						$I18N->msg( 'no-matches', array(
-							'variables' => array( $result['input'] ),
+						$I18N->msg( 'no-matches', [
+							'variables' => [ $result['input'] ],
 							'escape' => 'html',
-						) ) .
+						] ) .
 						'</em></p>';
 				} else {
 					$table = '<table class="table table-hover">';
@@ -71,7 +72,7 @@ class WikiInfoTool extends KrToolBaseClass {
 		}
 
 		// Full page view
-		$kgBase->setLayout( 'header', array( 'captionText' => $I18N->msg( 'description' ) ) );
+		$kgBase->setLayout( 'header', [ 'captionText' => $I18N->msg( 'description' ) ] );
 		$kgBase->addOut( '<div class="container">' );
 		$this->showForm( $params );
 		$kgBase->addOut( '<div id="ot-result">' . $resultsHtml . '</div>' );
@@ -79,36 +80,38 @@ class WikiInfoTool extends KrToolBaseClass {
 		$kgBase->addOut( '</div>' );
 	}
 
-	protected function showForm( Array $params ) {
+	protected function showForm( array $params ) {
 		global $kgBase, $I18N;
 		$kgBase->addOut(
 			'<form class="form-horizontal" role="form" id="ot-form" method="get">'
 			. '<fieldset>'
-			. Html::element( 'legend', array(), $I18N->msg( 'form-legend-settings', 'krinkle' ) )
+			. Html::element( 'legend', [], $I18N->msg( 'form-legend-settings', 'krinkle' ) )
 			. '<div class="form-group">'
-			. Html::element( 'label', array(
+			. Html::element( 'label', [
 				'for' => 'ot-form-wikiids',
 				'class' => 'control-label col-sm-2',
-			), $I18N->msg( 'label-wikiids' ) )
+			], $I18N->msg( 'label-wikiids' ) )
 				. '<div class="col-sm-10">'
-				. Html::element( 'input', array(
+				. Html::element( 'input', [
 					'type' => 'text',
 					'name' => 'wikiids',
 					'id' => 'ot-form-wikiids',
 					'class' => 'form-control',
 					'value' => $params['wikiids']
-				) )
-				. '<p class="help-block">commonswiki, nl, enwiki_p, de.wikipedia, http://meta.wikimedia.org, http://wikisource.org/?diff=3, '
-					. $I18N->msg( 'etc', array( 'domain' => 'general', 'escape' => 'html' ) )
+				] )
+				. '<p class="help-block">'
+					. 'commonswiki, nl, enwiki_p, de.wikipedia, '
+					. 'http://meta.wikimedia.org, http://wikisource.org/?diff=3, '
+					. $I18N->msg( 'etc', [ 'domain' => 'general', 'escape' => 'html' ] )
 					. '</p>'
 				. '</div>'
 			. '</div>'
 			. '<div class="form-group">'
 				. '<div class="col-sm-offset-2 col-sm-5">'
-				. Html::element( 'button', array(
+				. Html::element( 'button', [
 					'class' => 'btn btn-primary',
 					'id' => 'ot-form-submit',
-				), $I18N->msg( 'form-submit', 'general' ) )
+				], $I18N->msg( 'form-submit', 'general' ) )
 				. '</div>'
 			. '</div>'
 			. '</fieldset>'
@@ -118,7 +121,7 @@ class WikiInfoTool extends KrToolBaseClass {
 
 	protected function fetchResults( $wikiids ) {
 		$wikiids = explode( '|', $wikiids );
-		$result = array();
+		$result = [];
 		foreach ( $wikiids as $wikiid ) {
 			$result[ $wikiid ] = $this->fetchResult( $wikiid );
 		}
@@ -142,9 +145,9 @@ class WikiInfoTool extends KrToolBaseClass {
 				FROM wiki
 				WHERE dbname LIKE :namewiki
 				LIMIT 1',
-				array(
+				[
 					':namewiki' => "{$normalised}wiki%",
-				)
+				]
 			);
 			if ( !$rows ) {
 				$rows = LabsDB::query( LabsDB::getMetaDB(),
@@ -152,9 +155,9 @@ class WikiInfoTool extends KrToolBaseClass {
 					FROM wiki
 					WHERE dbname LIKE :nameany
 					LIMIT 1',
-					array(
+					[
 						':nameany' => "{$normalised}%",
-					)
+					]
 				);
 			}
 			if ( !$rows ) {
@@ -163,9 +166,9 @@ class WikiInfoTool extends KrToolBaseClass {
 					FROM wiki
 					WHERE url LIKE :urlany
 					LIMIT 1',
-					array(
+					[
 						':urlany' => "%/{$normalised}%",
-					)
+					]
 				);
 			}
 			if ( !$rows ) {
@@ -174,15 +177,15 @@ class WikiInfoTool extends KrToolBaseClass {
 					FROM wiki
 					WHERE url LIKE :anyurlany
 					LIMIT 1',
-					array(
+					[
 						':anyurlany' => "%{$normalised}%",
-					)
+					]
 				);
 			}
 
 			if ( isset( $rows[0] ) ) {
 				$dbinfo = $rows[0];
-				$result = array(
+				$result = [
 					'dbname' => $dbinfo['dbname'],
 					'lang' => $dbinfo['lang'],
 					'name' => $dbinfo['name'],
@@ -191,17 +194,17 @@ class WikiInfoTool extends KrToolBaseClass {
 					'servername' => preg_replace( '/^https?:\/\//', '', $dbinfo['url'] ),
 					'canonicalserver' => $dbinfo['url'],
 					'scriptpath' => '/w',
-					'apiurl' => $dbinfo['url']. '/w/api.php',
-				);
+					'apiurl' => $dbinfo['url'] . '/w/api.php',
+				];
 			}
 		}
 
-		return array(
+		return [
 			'input' => $wikiid,
 			'search' => $normalised,
 			'match' => ( $result !== null ),
 			'data' => $result,
-		);
+		];
 	}
 
 	protected static function cleanWikiID( $wikiid ) {
