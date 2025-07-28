@@ -17,6 +17,6 @@
 			"parallel-lint . --exclude vendor",
 			"@phan"
 		],
-		"phan": "phan --allow-polyfill-parser --no-progress-bar"
+		"phan": "phan --allow-polyfill-parser"
 	}
 }
