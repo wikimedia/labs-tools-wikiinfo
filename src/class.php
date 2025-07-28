@@ -199,7 +199,7 @@ class WikiInfoTool extends KrToolBaseClass {
 		return array(
 			'input' => $wikiid,
 			'search' => $normalised,
-			'match' => isset( $result ),
+			'match' => ( $result !== null ),
 			'data' => $result,
 		);
 	}
