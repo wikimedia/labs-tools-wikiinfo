@@ -1,6 +1,6 @@
 <?php
 return [
-	'target_php_version' => '7.4',
+	'target_php_version' => '8.1',
 
 	'directory_list' => [
 		'vendor/krinkle/',

@@ -18,7 +18,7 @@ Initial setup, as per [Toolforge documentation](https://wikitech.wikimedia.org/w
 2. Create public link, e.g.
    `$ ln -s ~/src/wikiinfo/public_html/ ~/public_html`
 3. Start webservice
-   `$ webservice --backend=kubernetes php7.4 restart`
+   `$ webservice --backend=kubernetes php8.2 restart`
 4. Run composer (in a webservice shell, to ensure correct PHP version context)
    ```
    $ webservice shell
