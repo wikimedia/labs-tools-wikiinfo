@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joao Xavier"
+		]
+	},
+	"input": "Eniro di dati",
+	"output": "Produkturo por \"$1\""
+}

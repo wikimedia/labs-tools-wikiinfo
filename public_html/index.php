@@ -8,7 +8,8 @@ require_once __DIR__ . '/../src/class.php';
 
 $tool = new WikiInfoTool();
 
-$I18N = new Intuition( 'getwikiapi' );
+$I18N = new Intuition( 'wikiinfo' );
+$I18N->registerDomain( 'wikiinfo', __DIR__ . '/../i18n' );
 
 $kgBase = BaseTool::newFromArray( [
 	'displayTitle' => $I18N->msg( 'title' ),
