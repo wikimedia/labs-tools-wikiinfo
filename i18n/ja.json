@@ -5,6 +5,7 @@
 			"Shirayuki"
 		]
 	},
+	"title": "Wiki Info",
 	"description": "ウィキメディアのウィキ群についてのメタ情報。",
 	"formats-heading": "出力形式",
 	"input": "入力",
