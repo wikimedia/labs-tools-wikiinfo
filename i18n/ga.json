@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Aindriu80"
+		]
+	},
+	"description": "Meitea-eolas faoi vicí Wikimedia.",
+	"formats-heading": "Formáidí aschuir",
+	"input": "Ionchur",
+	"label-wikiids": "Aitheantóirí Vicí",
+	"no-matches": "Níor tháinig aon rud le \"$1\"",
+	"output": "Aschur le haghaidh \"$1\""
+}
