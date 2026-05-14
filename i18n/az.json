@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Khan27"
+			"Khan27",
+			"Əkrəm"
 		]
 	},
+	"description": "Vikimedia vikiləri barədə metaməlumat.",
 	"formats-heading": "Çıxış formatları",
 	"input": "Giriş",
 	"label-wikiids": "Viki tanımlayıcıları",
