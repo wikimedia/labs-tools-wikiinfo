@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Revi",
+			"Tensama0415",
 			"Ykhwong",
 			"아라"
 		]
 	},
+	"title": "위키 정보",
 	"description": "위키미디어 위키에 관한 메타 정보",
 	"formats-heading": "출력 형식",
 	"input": "입력",
